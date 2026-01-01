@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weekly Progress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="app-bg">  <!-- ✅ THIS WAS MISSING -->
+
+<header class="header small">
+    
+    <a href="#" class="bottom-progress-btn">Weekly Progress</a>
+
+
+</header>
+
+<div class="progress-container">
+{% for row in data %}
+    <div class="progress-card">
+        <div class="progress-label">{{ row.completed_date }}</div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" data-width="{{ row.count * 20 }}"></div>
+
+        </div>
+
+        <div class="progress-value">🔥 {{ row.count }} tasks</div>
+    </div>
+{% endfor %}
+</div>
+
+<div class="bottom-nav">
+    <a href="/" class="nav-btn">🏠 Home</a>
+    <a href="/monthly" class="nav-btn">📊 Monthly</a>
+</div>
+
+</div> <!-- ✅ app-bg closes -->
+
+</body>
+</html>
+
+

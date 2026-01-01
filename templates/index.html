@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Streakd | Build Consistency</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="app-bg">
+
+    <header class="header">
+    <h1>🔥 Streakd</h1>
+    <p class="subtitle">Build habits. Gain XP. Level up.</p>
+
+    <!-- Main XP Display -->
+    <div class="xp-badge">
+        <span>🔥 {{ xp }} XP</span>
+    </div>
+</header>
+    <!-- Quote Card -->
+    <section class="quote-card">
+        <p class="quote">“Consistency beats motivation.”</p>
+    </section>
+    <!-- XP Card -->
+    
+<section class="xp-card">
+    <p class="level">Level {{ level }}</p>
+
+    <div class="xp-bar">
+        <div class="xp-fill" id="xpFill"
+             data-current="{{ xp }}"
+             data-next="{{ next_level_xp }}">
+        </div>
+    </div>
+
+    <p class="xp-text">{{ xp }} XP</p>
+</section>
+
+    <!-- Tasks -->
+    <section class="tasks">
+    <h2>Today’s Tasks</h2>
+{% for task in tasks %}
+<div class="task-card">
+    <div class="task-info">
+    <div class="task-name">{{ task[1] }}</div>
+
+    <div class="task-streak">
+        🔥 {{ task.streak }} day streak
+    </div>
+</div>
+    <div class="task-actions">
+        {% if task.completed_date != today %}
+    <form action="/complete-task/{{ task.id }}" method="POST">
+        <button type="submit" class="complete-btn">✔</button>
+    </form>
+{% else %}
+    <div class="completed-streak">
+        🔥 {{ task.streak }} day streak
+    </div>
+{% endif %}
+
+
+        <form action="/delete-task/{{ task.id }}" method="POST">
+            <button type="submit" class="delete-btn">🗑</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+</section>
+    <!-- Add Task Button -->
+    <button class="add-task-btn">＋ Add Task</button>
+    <!-- Add Task Popup -->
+<div class="modal" id="taskModal">
+    <div class="modal-content">
+        <h2>✨ Add New Task</h2>
+        <form action="/add-task" method="POST">
+            <input type="text" name="task_name" placeholder="Task name..." required />
+            <div class="modal-actions">
+                <button class="save-btn" type="submit">Save</button>
+                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="bottom-nav">
+    <a href="{{ url_for('weekly_progress') }}" class="nav-btn">📅 Weekly Progress</a>
+    <a href="{{ url_for('monthly_progress') }}" class="nav-btn">📊 Monthly Progress</a>   
+</div>
+</div>
+</body>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>
