@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 def get_db():
     conn = sqlite3.connect("streakd.db")
-    conn.row_factory = sqlite3.Row  # so you can use task.completed, task.streak
+    conn.row_factory = sqlite3.Row  
     return conn
 
 def init_db_safe():
@@ -44,7 +44,7 @@ def init_db_safe():
         )
     """)
 
-    # Fix existing tasks table if streak column is missing
+    
     try:
         c.execute("ALTER TABLE tasks ADD COLUMN streak INTEGER DEFAULT 0")
     except sqlite3.OperationalError:
@@ -128,7 +128,7 @@ def delete_task(task_id):
     conn.close()
     return redirect(url_for("index"))
 
-# Weekly & Monthly progress (same as your previous)
+
 @app.route("/weekly")
 def weekly_progress():
     conn = get_db()
