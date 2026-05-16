@@ -19,3 +19,6 @@ to track daily tasks, maintain streaks, and earn XP for consistency.
 ```bash
 pip install -r requirements.txt
 python app.py
+
+## Live Link
+https://new-sku9.onrender.com/
